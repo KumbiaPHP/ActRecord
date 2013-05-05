@@ -10,7 +10,7 @@
  * http://wiki.kumbiaphp.com/Licencia
  *
  * @category   Kumbia
- * @package    Core
+ * @package    ActRecord
  * @copyright  Copyright (c) 2005-2012 KumbiaPHP Team (http://www.kumbiaphp.com)
  * @license    http://wiki.kumbiaphp.com/Licencia     New BSD License
  */
@@ -27,8 +27,14 @@
 class ActRows
 {
   
+  __set()
+  {
+    
+  }
   
-  
-  
+  __get()
+  {
+    
+  }
   
 }
