@@ -16,10 +16,10 @@
  */
 
 /**
- * Este script ejecuta la carga de KumbiaPHP
+ * Clase para recorrer los resultados de la busqueda
  *
  * @category   Kumbia
- * @package    Core
+ * @package    ActRecord
  */
 
 //NAMESPACE
