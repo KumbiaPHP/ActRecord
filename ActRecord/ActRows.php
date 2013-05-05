@@ -21,3 +21,14 @@
  * @category   Kumbia
  * @package    Core
  */
+
+//NAMESPACE
+
+class ActRows
+{
+  
+  
+  
+  
+  
+}
