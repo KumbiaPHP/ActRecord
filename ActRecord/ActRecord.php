@@ -9,7 +9,7 @@
  */
 
 /**
- * Clase para recorrer los resultados de la consulta
+ * ActRecord Clase para el Mapeo Objeto Relacional
  *
  * @category   Kumbia
  * @package    ActRecord
