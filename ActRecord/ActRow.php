@@ -24,7 +24,7 @@
 
 //NAMESPACE
 
-class ActRows implements Iterator, ArrayAccess, SeekableIterator, Countable
+class ActRow implements Iterator, ArrayAccess, SeekableIterator, Countable
 {
   
   __set()
