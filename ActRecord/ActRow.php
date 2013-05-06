@@ -16,7 +16,7 @@
  */
 
 /**
- * Clase para recorrer los resultados de la busqueda
+ * Clase para recorrer los resultados de la consulta
  *
  * @category   Kumbia
  * @package    ActRecord
