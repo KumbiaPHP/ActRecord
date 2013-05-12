@@ -69,29 +69,9 @@ class DB
         if (!include_once __DIR__ . "/drivers/$driver.php") {
             throw new KumbiaException(_("No existe el driver $driver, necesario para iniciar la base de datos"));
         }
-        $dbclass = "DB{$driver]}";
+        $dbclass = "DB{$driver}";
         
         return new $dbclass($config);
-    }
-        // carga los valores por defecto para la conexión, si no existen
-        //$default = array('port' => 0, 'dsn' => NULL, 'dbname' => NULL, 'host' => 'localhost', 'username' => NULL, 'password' => NULL);
-        //$config = $config + $default;
-
-        //Si usa PDO
-        //if (isset($config['pdo'])) {
-        //    $dbclass = "DBPdo{$config['type']}";
-        //    $db_file = "libs/db/adapters/pdo/{$config['type']}.php";
-        //} else {
-        //    $dbclass = "DB{$config['type']}";
-        //    $db_file = "libs/db/adapters/{$config['type']}.php";
-        //}
-
-        //Carga la clase adaptadora necesaria
-        //if (!include_once __DIR__ . $db_driver) {
-        //    throw new KumbiaException(_("No existe el driver $dbclass, necesaria para iniciar el adaptador"));
-        //}
-
-        //return new $dbclass($config);
     }
 
 }

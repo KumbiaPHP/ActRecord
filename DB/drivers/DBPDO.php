@@ -28,19 +28,13 @@ class DBPDO //extends PDO
     
     //protected static $sth;
 	protected static $fetch = PDO::FETCH_OBJ;
-    
-    /**
-	 * @method __construct()
-	 * @returns nothing
-	 * 
-	 * Connects to the database using defined constants
-	 */
 	
-	function __construct($config){
-		try{ // se enviara la conexion ya creada en el $config
-		    self::dbh = new PDO($config['con'].':dbname='.$config['db'].';host='.$db['host'], $db['user'], $db['pass']);
-		    self::dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING); 
-		    self::dbh->fetch_mode = PDO::FETCH_OBJ;
+	function __construct($config)
+    {
+		try { // se enviara la conexion ya creada en el $config
+		    self::$dbh = new PDO($config['dsn'], $db['user'], $db['pass'], $db['options']);
+		    self::$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING); 
+		    self::$dbh->fetch_mode = PDO::FETCH_OBJ;
 		} // añadir error de conexión
 	}
 
@@ -54,7 +48,7 @@ class DBPDO //extends PDO
         }
         
         try {
-            $stmt = $dbh->prepare($sql);
+            $stmt = self::$dbh->prepare($sql);
             $stmt->execute($data);
         } // añadir error de consulta
         
@@ -63,15 +57,23 @@ class DBPDO //extends PDO
     
     public static function all($sql)
     {
-        $stmt = self::query(func_get_args());//falta los args
+        $stmt = self::query(func_get_args());
         return $stmt->fetchAll();
     }
-
-    protected static function close()
+    
+    public static function driver()
     {
-        //self::$sth->close();
-        self::$dbh->close();
+        return self::$dbh->getAttribute(constant("PDO::ATTR_DRIVER_NAME"));
     }
 
-    
+    public static function info()
+    {
+        return array(
+            'driver' => self::$dbh->getAttribute(constant("PDO::ATTR_DRIVER_NAME")),
+            'server' => self::$dbh->getAttribute(constant("PDO::ATTR_SERVER_VERSION")),
+            'version' => self::$dbh->getAttribute(constant("PDO::ATTR_SERVER_VERSION")),
+            'client' => self::$dbh->getAttribute(constant("PDO::ATTR_CLIENT_VERSION"))
+            )
+    }
+
 }
