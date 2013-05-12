@@ -27,14 +27,16 @@ class DBPDO //extends PDO
     protected static $dbh = false;
     
     //protected static $sth;
-	protected static $fetch = PDO::FETCH_OBJ;
+	//protected static $fetch = PDO::FETCH_OBJ;
 	
 	function __construct($config)
     {
 		try { // se enviara la conexion ya creada en el $config
-		    self::$dbh = new PDO($config['dsn'], $config['user'], $config['pass'], $config['options']);
-		    self::$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING); 
-		    self::$dbh->fetch_mode = PDO::FETCH_OBJ;
+		    $dbh = new PDO($config['dsn'], $config['user'], $config['pass'], $config['options']);
+		    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+            $dbh->exec("SET NAMES utf8"); //por ahora fijo
+		    $dbh->fetch_mode = PDO::FETCH_OBJ;
+            self::$dbh = $dbh;
 		} catch(PDOException $ex) {
             echo 'Error conexión: ', $ex;
         }
