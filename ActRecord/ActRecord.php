@@ -33,19 +33,28 @@ class ActRecordBase
 
 	protected function getDB()
 	{
-		
+		//static 
+
 	}
 
 	public static function all()
 	{
-		$sql = 'SELECT * FROM '.__CLASS__;
+		$sql = 'SELECT * FROM '.strtolower(get_called_class());
 		$db = DB::get();
 		return $db::all($sql);
 	}
 
 	public function get($id)
 	{
-		$sql = 'SELECT * FROM '.__CLASS__.' where id='.(int)id;
+		$sql = 'SELECT * FROM '.get_called_class().' where id='.(int)id;
+		$db = DB::get();
+
+		return $db::$dbh->query($sql, PDO::FETCH_INTO, $this);
+	}
+
+	public function update()
+	{
+		$sql = 'SELECT * FROM '.get_called_class().' where id='.(int)id;
 		$db = DB::get();
 
 		return $db::$dbh->query($sql, PDO::FETCH_INTO, $this);

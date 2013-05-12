@@ -32,33 +32,43 @@ class DBPDO //extends PDO
 	function __construct($config)
     {
 		try { // se enviara la conexion ya creada en el $config
-		    self::$dbh = new PDO($config['dsn'], $db['user'], $db['pass'], $db['options']);
+		    self::$dbh = new PDO($config['dsn'], $config['user'], $config['pass'], $config['options']);
 		    self::$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING); 
 		    self::$dbh->fetch_mode = PDO::FETCH_OBJ;
-		} // añadir error de conexión
+		} catch(PDOException $ex) {
+            echo 'Error conexión: ', $ex;
+        }
 	}
 
     public static function query($sql)
     {
+        $data = NULL;
         if(func_num_args() > 1){
             $data = array_shift(func_get_args());
             if(is_array($data[0])){
                 $data = $data[0];
             }
         }
-        
+        echo $sql;
         try {
             $stmt = self::$dbh->prepare($sql);
-            $stmt->execute($data);
-        } // añadir error de consulta
+            //if($data){
+                $stmt->execute($data);
+            //} else {
+            //    $stmt->execute();
+            //}
+            
+        } catch(PDOException $ex) {
+            echo 'Error consulta: ', $ex;
+        }
         
         return $stmt;
     }
     
     public static function all($sql)
     {
-        $stmt = self::query(func_get_args());
-        return $stmt->fetchAll();
+        $stmt = self::query(implode(',',func_get_args()));
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
     
     public static function driver()
@@ -73,7 +83,7 @@ class DBPDO //extends PDO
             'server' => self::$dbh->getAttribute(constant("PDO::ATTR_SERVER_VERSION")),
             'version' => self::$dbh->getAttribute(constant("PDO::ATTR_SERVER_VERSION")),
             'client' => self::$dbh->getAttribute(constant("PDO::ATTR_CLIENT_VERSION"))
-            )
+            );
     }
 
 }

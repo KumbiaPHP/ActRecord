@@ -66,7 +66,7 @@ class DB
             throw new KumbiaException(_("Debe definir un driver en la configuración de esta base de datos"));
         }
 
-        if (!include_once __DIR__ . "/drivers/$driver.php") {
+        if (!include_once __DIR__ . "/drivers/DB{$driver}.php") {
             throw new KumbiaException(_("No existe el driver $driver, necesario para iniciar la base de datos"));
         }
         $dbclass = "DB{$driver}";
