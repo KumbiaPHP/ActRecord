@@ -22,7 +22,10 @@ class ActRecordBase
   
 	function __construct()
 	{
+		// debe ser small_case por defecto
+		self::getTable(strtolower(get_called_class()));
 		$this->initialize();
+
 
 	}
 
@@ -37,11 +40,12 @@ class ActRecordBase
 
 	}
 
-	public static function getTable()
+	protected static function getTable($table = NULL)
 	{
-		// cambiar para usar otra tabla
-		// debe ser small_case por defecto
-		return strtolower(get_called_class());
+		static $source;
+		if($table) return $source = $table;
+
+		return $source;
 	}
 
 	public static function all()
