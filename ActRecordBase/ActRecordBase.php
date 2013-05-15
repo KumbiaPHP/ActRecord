@@ -37,16 +37,23 @@ class ActRecordBase
 
 	}
 
+	public static function getTable()
+	{
+		// cambiar para usar otra tabla
+		// debe ser small_case por defecto
+		return strtolower(get_called_class());
+	}
+
 	public static function all()
 	{
-		$sql = 'SELECT * FROM '.strtolower(get_called_class());
+		$sql = 'SELECT * FROM '.self::getTable();
 		$db = DB::get();
 		return $db::all($sql);
 	}
 
 	public function get($id)
 	{
-		$sql = 'SELECT * FROM '.get_called_class().' where id='.(int)id;
+		$sql = 'SELECT * FROM '.self::getTable().' where id='.(int)id;
 		$db = DB::get();
 
 		return $db::$dbh->query($sql, PDO::FETCH_INTO, $this);
@@ -54,7 +61,7 @@ class ActRecordBase
 
 	public function update()
 	{
-		$sql = 'SELECT * FROM '.get_called_class().' where id='.(int)id;
+		$sql = 'SELECT * FROM '.self::getTable().' where id='.(int)id;
 		$db = DB::get();
 
 		return $db::$dbh->query($sql, PDO::FETCH_INTO, $this);
